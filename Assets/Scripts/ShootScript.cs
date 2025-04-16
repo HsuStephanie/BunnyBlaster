@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 public class ShootScript : MonoBehaviour
 {
     [Header("Bullet")]
-    [SerializeField] private float bulletSpeed = 1.0f;
+    [SerializeField] private float bulletSpeed = 2.0f;
     [SerializeField] private Vector3 spawnPos;
 
     [Header("Target")]
@@ -16,18 +16,30 @@ public class ShootScript : MonoBehaviour
     [Header("Player")]
     [SerializeField] private GameObject player;
 
+    [Header("Move Direction")]
+    private Vector3 moveDirection;
+
+    [Header ("PointsScript")]
+    [SerializeField] public PointsScript pointsScript;
+
     void Awake()
     {
         target = GameObject.FindWithTag("target");
         player = GameObject.FindWithTag("Player");
+        GameObject UIManager = GameObject.FindGameObjectWithTag("manager");
+        if (UIManager !=null)
+        {
+            pointsScript = UIManager.GetComponent<PointsScript>();
+        }
         
     }
 
 
     void Start()
     {  
-        spawnPos = player.transform.position; //okay
-        targetPos = target.transform.position; 
+        spawnPos = player.transform.position;
+        targetPos = new Vector3 (target.transform.position.x,target.transform.position.y, target.transform.position.z);
+        moveDirection = (targetPos - spawnPos).normalized;
        
     }
 
@@ -36,29 +48,34 @@ public class ShootScript : MonoBehaviour
         MoveBullet();
     
     }
-    // public void InitBulletTarget(Vector3 target)
-    // {
-    //     targetPos = target;
-    // }
+  
     private void MoveBullet()
     {
-        // GameObject bullet = Instantiate(Resources.Load("Bullet", typeof(GameObject))) as GameObject;
-        transform.position = Vector3.MoveTowards(transform.position, targetPos, bulletSpeed * Time.deltaTime);
+        // Move in the direction of the target indefinitely
+        transform.position += moveDirection * bulletSpeed * Time.deltaTime;
     }
 
     public void OnTriggerEnter(Collider other)
     {
+        
         if (other.gameObject.CompareTag("egg"))
         {
-            Destroy(other.gameObject);
+            pointsScript.AddPoint(1);
+            other.gameObject.SetActive(false);
             Destroy(gameObject);
         }
-        else if (other.gameObject.CompareTag("background"))
+        
+        if (other.gameObject.CompareTag("background"))
         {
+            Debug.Log("Hit background");
             Destroy(gameObject);
         }
     }
 
-  
+   
+
+
+
+
 }
 

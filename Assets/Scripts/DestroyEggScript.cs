@@ -2,8 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EggMovementScript : MonoBehaviour
+public class DestroyEggScript : MonoBehaviour
 {
+    
+ 
+    
     // Start is called before the first frame update
     void Start()
     {
@@ -13,8 +16,18 @@ public class EggMovementScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+      DestroyEgg();
+    }
+
+  
+
+    private void DestroyEgg()
+    {
         
     }
+
+
+
 }
 
    

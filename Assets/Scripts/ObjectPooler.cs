@@ -7,7 +7,7 @@ public class ObjectPooler : MonoBehaviour
 {
     public static ObjectPooler SharedInstance;
     public List<GameObject> pooledObjects;
-    public GameObject objectToPool;
+    public GameObject[] objectToPool;
     public int amountToPool;
 
     void Awake()
@@ -18,30 +18,37 @@ public class ObjectPooler : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        // Loop through list of pooled objects,deactivating them and adding them to the list 
+        
         pooledObjects = new List<GameObject>();
-        for (int i = 0; i < amountToPool; i++)
+        
+        //ensures loop through all objects to pool
+        for (int j = 0; j < objectToPool.Length; j++)
         {
-            GameObject obj = (GameObject)Instantiate(objectToPool);
+            //for each object
+            for (int i = 0; i < amountToPool; i++)
+            {
+            //bullet
+            GameObject obj = Instantiate(objectToPool[j]);
             obj.SetActive(false);
             pooledObjects.Add(obj);
-            obj.transform.SetParent(this.transform); // set as children of Spawn Manager
-        }
-    }
-
-    public GameObject GetPooledObject()
-    {
-        // For as many objects as are in the pooledObjects list
-        for (int i = 0; i < pooledObjects.Count; i++)
-        {
-            // if the pooled objects is NOT active, return that object 
-            if (!pooledObjects[i].activeInHierarchy)
-            {
-                return pooledObjects[i];
+            obj.transform.SetParent(this.transform); // set as children of Game Manage
             }
         }
-        // otherwise, return null   
+            
+    }
+
+
+    public GameObject GetPooledObject(string tag)
+    {
+        foreach (GameObject obj in pooledObjects)
+        {
+            if (!obj.activeInHierarchy && obj.CompareTag(tag))
+            {
+                return obj;
+            }
+        }
         return null;
     }
+
 
 }

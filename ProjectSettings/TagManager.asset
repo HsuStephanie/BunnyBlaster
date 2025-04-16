@@ -6,6 +6,11 @@ TagManager:
   tags:
   - target
   - background
+  - egg
+  - bullet
+  - egg1
+  - egg2
+  - manager
   layers:
   - Default
   - TransparentFX
