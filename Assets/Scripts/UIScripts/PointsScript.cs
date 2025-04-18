@@ -6,7 +6,7 @@ using UnityEngine;
 public class PointsScript : MonoBehaviour
 {
     [SerializeField] public TextMeshProUGUI scoreText;
-    [SerializeField] private int score = 0;
+    [SerializeField] public int score = 0;
 
     // Start is called before the first frame update
     void Start()

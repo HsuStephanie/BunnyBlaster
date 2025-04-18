@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
+using UnityEngine.Audio;
 
 public class ShootScript : MonoBehaviour
 {
@@ -22,6 +22,10 @@ public class ShootScript : MonoBehaviour
     [Header ("PointsScript")]
     [SerializeField] public PointsScript pointsScript;
 
+    [Header ("Sound Manager")]
+    [SerializeField] SoundManager soundManagerScript;
+    [SerializeField] AudioSource audioSource;
+
     void Awake()
     {
         target = GameObject.FindWithTag("target");
@@ -31,12 +35,14 @@ public class ShootScript : MonoBehaviour
         {
             pointsScript = UIManager.GetComponent<PointsScript>();
         }
+        soundManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<SoundManager>();
         
     }
 
 
     void Start()
     {  
+        audioSource = GameObject.FindGameObjectWithTag("GameController").GetComponent<AudioSource>();
         spawnPos = player.transform.position;
         targetPos = new Vector3 (target.transform.position.x,target.transform.position.y, target.transform.position.z);
         moveDirection = (targetPos - spawnPos).normalized;
@@ -60,6 +66,7 @@ public class ShootScript : MonoBehaviour
         
         if (other.gameObject.CompareTag("egg"))
         {
+            audioSource.PlayOneShot(soundManagerScript.hitSound);
             pointsScript.AddPoint(1);
             other.gameObject.SetActive(false);
             Destroy(gameObject);

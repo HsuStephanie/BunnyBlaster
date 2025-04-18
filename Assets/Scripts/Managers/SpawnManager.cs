@@ -1,18 +1,14 @@
 
 using UnityEngine;
-using UnityEditor;
-using Unity.VisualScripting;
 
 public class SpawnManager : MonoBehaviour
 {
-
-
     [Header("Spawn positions")]
 
     [SerializeField] private float minXRange = -1.9f;
     [SerializeField] private float maxXRange = 2.3f;
 
-    [SerializeField] private float minYRange = 0.34f;
+    [SerializeField] private float minYRange = 0.5f;
     [SerializeField] private float maxYRange = 1.84f;
 
 
@@ -25,31 +21,50 @@ public class SpawnManager : MonoBehaviour
 
     [SerializeField] private float speed;
 
-    [SerializeField] int numberOfEggs;
+    [SerializeField] public int numberOfEggs;
+
+    private bool isSpawning = false;
+    
 
     [Header("Target script")]
     [SerializeField] public TargetMovementScript targetMovementScript;
+
+    [Header("GameManager Script")]
+    [SerializeField] GameManager gameManagerScript;
 
     // Start is called before the first frame update
     void Start()
     {
         targetMovementScript = GameObject.FindGameObjectWithTag("target").GetComponent<TargetMovementScript>();
-        SpawnEgg();
+        gameManagerScript = GameObject.FindGameObjectWithTag("GameController").GetComponent<GameManager>();
         
     }
 
     void Update()
     {
-        int numberOfEggs = GameObject.FindGameObjectsWithTag("egg").Length;
-        if (numberOfEggs ==0)
+         int numberOfEggs = GameObject.FindGameObjectsWithTag("egg").Length;
+        
+        if (!gameManagerScript.countdownActive)
         {
-            SpawnEgg();
+            if (!isSpawning && numberOfEggs ==0)
+            {
+                SpawnEgg();
+            }
+            
+            if (numberOfEggs ==0)
+            {
+                isSpawning = false;
+                targetMovementScript.hasAddedBullets=false;    
+            }
         }
+       
+       
     }
 
     //want to spawn random eggs from the pooler
     private void SpawnEgg()
     {
+        isSpawning = true;
         for (int i= 0; i<amountToSpawn; i++)
         {
             GameObject pooledTarget = ObjectPooler.SharedInstance.GetPooledObject("egg");
@@ -65,5 +80,4 @@ public class SpawnManager : MonoBehaviour
 
     }
 
-   
 }

@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class BulletsLeftScript : MonoBehaviour
 {
      [SerializeField] public TextMeshProUGUI bulletsLeftText;
-    [SerializeField] private int bulletsLeft = 20;
+    [SerializeField] public int bulletsLeft;
 
     [SerializeField] public TargetMovementScript targetMovementScript;
     
@@ -15,6 +15,8 @@ public class BulletsLeftScript : MonoBehaviour
     void Start()
     {
         targetMovementScript = GameObject.FindGameObjectWithTag("target").GetComponent<TargetMovementScript>();
+
+        bulletsLeft = 10;
        
         bulletsLeftText.text = bulletsLeft.ToString();
 
@@ -23,12 +25,12 @@ public class BulletsLeftScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (bulletsLeft >=1)
+        if (bulletsLeft >=0)
         {
-            bulletsLeftText.text = (bulletsLeft - targetMovementScript.countProjectiles).ToString();
+
+            bulletsLeftText.text = bulletsLeft.ToString();
         }
         
     }
-
     
 }

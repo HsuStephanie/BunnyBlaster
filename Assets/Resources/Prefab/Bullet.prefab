@@ -118,7 +118,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db190448e503a4659a7658f20c4d3d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletSpeed: 1
+  bulletSpeed: 5
   spawnPos: {x: 0, y: 0, z: 0}
   targetPos: {x: 0, y: 0, z: 0}
   player: {fileID: 0}
+  pointsScript: {fileID: 0}

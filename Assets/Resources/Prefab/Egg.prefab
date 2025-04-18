@@ -35,7 +35,8 @@ Transform:
   m_LocalPosition: {x: -0.89061, y: 0.322, z: -1.7896}
   m_LocalScale: {x: 0.726, y: 0.726, z: 0.726}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 83531365894045901}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 90, y: 0, z: -180}
 --- !u!114 &4217497786984678989
@@ -728,3 +729,37 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fd9fd794c5a42b1bba9fe2416be956, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rotationSpeed: 50
+  speed: 1
+  pivotPoint: {fileID: 83531365894045901}
+--- !u!1 &3602617156554671416
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 83531365894045901}
+  m_Layer: 0
+  m_Name: pivotPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &83531365894045901
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3602617156554671416}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.33, y: -0, z: -0.258}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8064209394919778529}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
